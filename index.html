@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Israeli Weightlifting - Ranking Configuration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #00b4db 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            max-width: 700px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #1e3c72;
+            font-size: 2em;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1e3c72, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #1e3c72;
+            font-size: 1.1em;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            transform: translateY(-2px);
+        }
+
+        input[type="text"].valid {
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        input[type="text"].invalid {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+
+
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .thresholds-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .thresholds-table th {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .thresholds-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .thresholds-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .thresholds-table tr:hover {
+            background: rgba(42, 82, 152, 0.05);
+        }
+
+        .category-label {
+            font-weight: 600;
+            color: #1e3c72;
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .spinner-container {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .spinner-input {
+            width: 100%;
+            padding: 8px 35px 8px 8px;
+            border: 2px solid #e1e1e1;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .spinner-input:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.1);
+        }
+
+        .spinner-buttons {
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            bottom: 2px;
+            width: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .spinner-btn {
+            flex: 1;
+            border: none;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+            border-radius: 0;
+        }
+
+        .spinner-btn:first-child {
+            border-top-right-radius: 6px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        .spinner-btn:last-child {
+            border-bottom-right-radius: 6px;
+        }
+
+        .spinner-btn:hover {
+            background: linear-gradient(135deg, #2a5298, #d4af37);
+            color: white;
+        }
+
+        .spinner-btn:active {
+            transform: scale(0.95);
+        }
+
+        .generate-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #d4af37, #1e3c72);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .generate-button:active {
+            transform: translateY(0);
+        }
+
+        .generate-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        .generate-button.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .status-message.success {
+            background: rgba(40, 167, 69, 0.1);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .status-message.error {
+            background: rgba(220, 53, 69, 0.1);
+            color: #dc3545;
+            border: 1px solid rgba(220, 53, 69, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 1.6em;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+
+            .thresholds-table th,
+            .thresholds-table td {
+                padding: 10px 8px;
+                font-size: 14px;
+            }
+
+            .spinner-input {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Israeli Weightlifting Federation" class="logo">
+            <h1>Ranking Configuration</h1>
+        </div>
+        
+        <form id="rankingForm">
+            <div class="form-group">
+                <label for="startDate">Ranking Start Date</label>
+                <input type="date" id="startDate">
+            </div>
+
+            <h2>Minimum Sinclair Thresholds</h2>
+            <table class="thresholds-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Male</th>
+                        <th>Female</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="category-label">U15</td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="male_u15" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u15', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u15', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="female_u15" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u15', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u15', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-label">U17</td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="male_u17" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u17', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u17', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="female_u17" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u17', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u17', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-label">U20</td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="male_u20" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u20', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u20', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="female_u20" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u20', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u20', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-label">U23</td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="male_u23" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u23', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u23', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="female_u23" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u23', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u23', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="category-label">SR</td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="male_sr" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_sr', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_sr', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="spinner-container">
+                                <input type="number" class="spinner-input" id="female_sr" step="0.1" min="0" value="0.0">
+                                <div class="spinner-buttons">
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_sr', 1)">▲</button>
+                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_sr', -1)">▼</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button type="submit" class="generate-button" id="generateBtn">
+                <div class="loading-spinner"></div>
+                <span>Generate Top Teams</span>
+            </button>
+
+            <div class="status-message" id="statusMessage"></div>
+        </form>
+    </div>
+
+    <script>
+        // API Configuration - Update this endpoint with your actual service URL
+        const API_ENDPOINT = 'https://us-central1-weightlifting-ranking-database.cloudfunctions.net/teams_ranking';
+        
+
+        
+        function formatDate(date) {
+            if (!date) return '';
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        
+        // Date input handling - simple validation for native date input
+        const startDateInput = document.getElementById('startDate');
+        
+        startDateInput.addEventListener('change', function() {
+            if (this.value) {
+                this.classList.add('valid');
+                this.classList.remove('invalid');
+            } else {
+                this.classList.remove('valid', 'invalid');
+            }
+        });
+        
+        // Spinner functionality
+        function adjustValue(inputId, delta) {
+            const input = document.getElementById(inputId);
+            const currentValue = parseFloat(input.value) || 0;
+            const newValue = Math.max(0, currentValue + delta);
+            input.value = newValue.toFixed(1);
+            
+            input.dispatchEvent(new Event('change'));
+        }
+        
+        // Show status message
+        function showStatusMessage(message, type = 'success') {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        // Download file from blob
+        function downloadFile(blob, filename) {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+        
+        // Form submission with API call
+        document.getElementById('rankingForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const generateBtn = document.getElementById('generateBtn');
+            const statusDiv = document.getElementById('statusMessage');
+            
+            // Validate date
+            if (!startDateInput.value) {
+                showStatusMessage('Please select a start date', 'error');
+                startDateInput.focus();
+                return;
+            }
+            
+            // Convert date to dd/mm/yyyy format for API
+            const dateObj = new Date(startDateInput.value);
+            const formattedDate = formatDate(dateObj);
+            
+            // Prepare data with naming convention
+            const rankingData = {
+                rankingStartDate: formattedDate,
+                minimumSinclairThresholds: {
+                    maleCategories: {
+                        u15: parseFloat(document.getElementById('male_u15').value) || 0,
+                        u17: parseFloat(document.getElementById('male_u17').value) || 0,
+                        u20: parseFloat(document.getElementById('male_u20').value) || 0,
+                        u23: parseFloat(document.getElementById('male_u23').value) || 0,
+                        sr: parseFloat(document.getElementById('male_sr').value) || 0
+                    },
+                    femaleCategories: {
+                        u15: parseFloat(document.getElementById('female_u15').value) || 0,
+                        u17: parseFloat(document.getElementById('female_u17').value) || 0,
+                        u20: parseFloat(document.getElementById('female_u20').value) || 0,
+                        u23: parseFloat(document.getElementById('female_u23').value) || 0,
+                        sr: parseFloat(document.getElementById('female_sr').value) || 0
+                    }
+                },
+                requestTimestamp: new Date().toISOString(),
+                generatedBy: 'israeli-weightlifting-ranking-system'
+            };
+            
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.classList.add('loading');
+            statusDiv.style.display = 'none';
+            
+            try {
+                console.log('Sending request to API:', rankingData);
+                
+                const response = await fetch(API_ENDPOINT, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(rankingData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                // Check if response is Excel file
+                const contentType = response.headers.get('content-type');
+                if (contentType && (contentType.includes('application/vnd.openxmlformats') || contentType.includes('application/vnd.ms-excel'))) {
+                    const blob = await response.blob();
+                    const filename = `israeli_weightlifting_rankings_${formattedDate.replace(/\//g, '-')}.xlsx`;
+                    downloadFile(blob, filename);
+                    showStatusMessage('Top teams Excel file downloaded successfully!', 'success');
+                } else {
+                    // Handle JSON response or other formats
+                    const result = await response.text();
+                    console.log('API Response:', result);
+                    showStatusMessage('Request completed successfully. Check console for details.', 'success');
+                }
+                
+            } catch (error) {
+                console.error('API Error:', error);
+                showStatusMessage(`Error generating teams: ${error.message}`, 'error');
+            } finally {
+                // Reset loading state
+                generateBtn.disabled = false;
+                generateBtn.classList.remove('loading');
+            }
+        });
+        
+        // Add hover effects to inputs
+        document.querySelectorAll('.spinner-input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('td').style.transform = 'translateY(-2px)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.closest('td').style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
