@@ -568,9 +568,10 @@
                 // Check if response is Excel file
                 const contentType = response.headers.get('content-type');
                 const today = new Date();
+                const formattedToday = formatDate(today);
                 if (contentType && (contentType.includes('application/vnd.openxmlformats') || contentType.includes('application/vnd.ms-excel'))) {
                     const blob = await response.blob();
-                    const filename = `Top_Teams_${formattedDate.replace(/\//g, '-')}.xlsx`;
+                    const filename = `Top_Teams_${formattedToday.replace(/\//g, '-')}.xlsx`;
                     downloadFile(blob, filename);
                     showStatusMessage('Top teams Excel file downloaded successfully!', 'success');
                 } else {
