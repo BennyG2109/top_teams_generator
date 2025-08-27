@@ -814,8 +814,7 @@
                 
             } catch (error) {
                 console.error('API Error:', error);
-                // showStatusMessage(`Error generating teams: ${error.message}`, 'error');
-                showStatusMessage(`Error generating teams: ${response.response}`, 'error');
+                showStatusMessage(`Error generating teams: ${error.message}`, 'error');
             } finally {
                 generateBtn.disabled = false;
                 generateBtn.classList.remove('loading');
