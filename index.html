@@ -447,10 +447,10 @@
         };
 
         const categoryLabels = {
-            sr: 'SR (Senior)',
-            u20u23: 'U20+U23 (Junior + U23)',
-            u17: 'U17 (Youth)',
-            u15: 'U15 (Schoolboy/Schoolgirl)'
+            sr: 'Senior',
+            u20u23: 'U20 and U23',
+            u17: 'U17',
+            u15: 'U15'
         };
 
         function formatDate(date) {
@@ -612,12 +612,13 @@
                 const categoryRanks = config.male && config.male[category] ? config.male[category] : [];
                 
                 // If no ranks exist, add a default one
-                if (categoryRanks.length === 0) {
-                    categoryRanks.push({
-                        rankName: `${category.toUpperCase()} Default`,
-                        threshold: getDefaultThreshold(category, 'male')
-                    });
-                }
+                // SUPPRESSED BG
+                // if (categoryRanks.length === 0) {
+                //     categoryRanks.push({
+                //         rankName: `${category.toUpperCase()} Default`,
+                //         threshold: getDefaultThreshold(category, 'male')
+                //     });
+                // }
                 
                 categoryRanks.forEach((rank, index) => {
                     rankCounter[category]++;
@@ -655,24 +656,54 @@
             });
         }
 
-        function getDefaultThreshold(category, gender) {
-            const defaults = {
-                sr: { male: 350.0, female: 220.0 },
-                u20u23: { male: 250.0, female: 180.0 },
-                u17: { male: 200.0, female: 130.0 },
-                u15: { male: 200.0, female: 130.0 }
-            };
-            return defaults[category][gender];
-        }
 
-        function downloadConfig() {
-            // Function removed - no longer needed
-        }
+        // Suppressed, BG
+        // function getDefaultThreshold(category, gender) {
+        //     const defaults = {
+        //         sr: { male: 350.0, female: 220.0 },
+        //         u20u23: { male: 250.0, female: 180.0 },
+        //         u17: { male: 200.0, female: 130.0 },
+        //         u15: { male: 200.0, female: 130.0 }
+        //     };
+        //     return defaults[category][gender];
+        // }
 
         function resetToDefaults() {
-            // Function removed - no longer needed  
+            const defaults = {                
+                "male": {
+                    "sr": [
+                    {"rankName": "אולימפי", "threshold": 350.0}
+                    ],
+                    "u20u23": [
+                    {"rankName": "נוער א'", "threshold": 300.0},
+                    {"rankName": "נוער ב'", "threshold": 270.0}
+                    ],
+                    "u17": [
+                    {"rankName": "עתודה הישגית", "threshold": 300.0},
+                    {"rankName": "עתודה א'", "threshold": 270.0},
+                    {"rankName": "עתודה ב'", "threshold": 250.0}
+                    ]
+                },
+                "female": {
+                    "sr": [
+                    {"rankName": "אולימפי", "threshold": 220.0}
+                    ],
+                    "u20u23": [
+                    {"rankName": "נוער א'", "threshold": 200.0},
+                    {"rankName": "נוער ב'", "threshold": 170.0}
+                    ],
+                    "u17": [
+                    {"rankName": "עתודה הישגית", "threshold": 200.0},
+                    {"rankName": "עתודה א'", "threshold": 170.0},
+                    {"rankName": "עתודה ב'", "threshold": 130.0}
+                    ]
+                }
+            };
+            loadConfigFromData(defaults);
+            
+        
         }
-
+        
         function showStatusMessage(message, type = 'success') {
             const statusDiv = document.getElementById('statusMessage');
             statusDiv.textContent = message;
@@ -697,11 +728,6 @@
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
         }
-
-        // Load local config file handler (removed)
-        // document.getElementById('loadConfig').addEventListener('change', function(e) {
-        //     ... removed
-        // });
 
         // Date input validation
         const startDateInput = document.getElementById('startDate');
