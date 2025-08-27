@@ -27,7 +27,7 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            max-width: 700px;
+            max-width: 900px;
             width: 100%;
             transition: transform 0.3s ease;
         }
@@ -82,23 +82,51 @@
             transform: translateY(-2px);
         }
 
-        input[type="text"].valid {
-            border-color: #28a745;
-            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
-        }
-
-        input[type="text"].invalid {
-            border-color: #dc3545;
-            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
-        }
-
-
-
         h2 {
             color: #1e3c72;
             margin-bottom: 20px;
             font-size: 1.5em;
             font-weight: 600;
+        }
+
+        .config-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(248, 249, 250, 0.8);
+            border-radius: 12px;
+            border: 2px dashed #dee2e6;
+        }
+
+        .config-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .config-btn {
+            padding: 8px 16px;
+            border: 2px solid #2a5298;
+            background: white;
+            color: #2a5298;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .config-btn:hover {
+            background: #2a5298;
+            color: white;
+        }
+
+        .config-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #f8f9fa;
+        }
+
+        .config-btn input[type="file"] {
+            display: none;
         }
 
         .thresholds-table {
@@ -118,91 +146,123 @@
             text-align: center;
             font-weight: 600;
             font-size: 1.1em;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .thresholds-table th:last-child {
+            border-right: none;
         }
 
         .thresholds-table td {
             padding: 12px 15px;
             text-align: center;
             border-bottom: 1px solid #e1e1e1;
+            border-right: 1px solid rgba(0, 0, 0, 0.05);
+            vertical-align: middle;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .thresholds-table td:last-child {
+            border-right: none;
         }
 
         .thresholds-table tr:last-child td {
             border-bottom: none;
         }
 
-        .thresholds-table tr:hover {
-            background: rgba(42, 82, 152, 0.05);
-        }
-
-        .category-label {
+        .category-header {
             font-weight: 600;
-            color: #1e3c72;
-            background: rgba(212, 175, 55, 0.1);
+            color: white;
+            background: linear-gradient(135deg, #1e3c72, #2a5298) !important;
+            font-size: 1.1em;
         }
 
-        .spinner-container {
-            position: relative;
-            display: inline-block;
-            width: 100%;
+        .category-header td {
+            background: transparent !important;
+            border-right: none !important;
         }
 
-        .spinner-input {
+        .category-row {
+            background: rgba(248, 249, 250, 0.9) !important;
+            border-left: 3px solid #d4af37;
+        }
+
+        .category-row td {
+            background: rgba(248, 249, 250, 0.9) !important;
+        }
+
+        .add-row-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 16px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .add-row-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .delete-row-btn {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 14px;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-row-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.3);
+        }
+
+        .threshold-input, .rank-name-input {
             width: 100%;
-            padding: 8px 35px 8px 8px;
+            padding: 10px;
             border: 2px solid #e1e1e1;
             border-radius: 8px;
             font-size: 14px;
-            text-align: center;
             transition: all 0.3s ease;
             background: white;
+            min-height: 40px;
+            box-sizing: border-box;
         }
 
-        .spinner-input:focus {
+        .threshold-input {
+            text-align: center;
+        }
+
+        .threshold-input:focus, .rank-name-input:focus {
             outline: none;
             border-color: #2a5298;
             box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.1);
         }
 
-        .spinner-buttons {
-            position: absolute;
-            right: 2px;
-            top: 2px;
-            bottom: 2px;
-            width: 30px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .spinner-btn {
-            flex: 1;
-            border: none;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .actions-cell {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            color: #666;
-            border-radius: 0;
-        }
-
-        .spinner-btn:first-child {
-            border-top-right-radius: 6px;
-            border-bottom: 1px solid #e1e1e1;
-        }
-
-        .spinner-btn:last-child {
-            border-bottom-right-radius: 6px;
-        }
-
-        .spinner-btn:hover {
-            background: linear-gradient(135deg, #2a5298, #d4af37);
-            color: white;
-        }
-
-        .spinner-btn:active {
-            transform: scale(0.95);
+            gap: 8px;
         }
 
         .generate-button {
@@ -223,10 +283,6 @@
         .generate-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
-        }
-
-        .generate-button:active {
-            transform: translateY(0);
         }
 
         .generate-button:disabled {
@@ -275,33 +331,72 @@
             border: 1px solid rgba(220, 53, 69, 0.3);
         }
 
-        @media (max-width: 600px) {
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
             .container {
                 padding: 25px;
                 margin: 10px;
+                max-width: 95%;
             }
 
             h1 {
                 font-size: 1.6em;
             }
 
-            .logo {
-                max-width: 150px;
+            .thresholds-table {
+                font-size: 14px;
             }
 
             .thresholds-table th,
             .thresholds-table td {
-                padding: 10px 8px;
-                font-size: 14px;
+                padding: 8px 6px;
             }
 
-            .spinner-input {
-                font-size: 13px;
+            .rank-name-input,
+            .threshold-input {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            .actions-cell {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .config-buttons {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner" style="display: inline-block; margin-bottom: 15px;"></div>
+            <div id="loadingMessage">Loading configuration from server...</div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="header">
             <img src="logo.png" alt="Israeli Weightlifting Federation" class="logo">
@@ -314,121 +409,20 @@
                 <input type="date" id="startDate">
             </div>
 
+
+
             <h2>Minimum Sinclair Thresholds</h2>
-            <table class="thresholds-table">
+            <table class="thresholds-table" id="thresholdsTable">
                 <thead>
                     <tr>
-                        <th>Category</th>
-                        <th>Male</th>
-                        <th>Female</th>
+                        <th style="width: 30%;">Rank Name</th>
+                        <th style="width: 25%;">Male</th>
+                        <th style="width: 25%;">Female</th>
+                        <th style="width: 20%;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="category-label">U15</td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="male_u15" step="0.1" min="0" value="200.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u15', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u15', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="female_u15" step="0.1" min="0" value="130.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u15', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u15', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="category-label">U17</td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="male_u17" step="0.1" min="0" value="200.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u17', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u17', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="female_u17" step="0.1" min="0" value="130.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u17', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u17', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="category-label">U20</td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="male_u20" step="0.1" min="0" value="250.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u20', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u20', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="female_u20" step="0.1" min="0" value="180.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u20', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u20', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="category-label">U23</td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="male_u23" step="0.1" min="0" value="250.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u23', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_u23', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="female_u23" step="0.1" min="0" value="180.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u23', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_u23', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="category-label">SR</td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="male_sr" step="0.1" min="0" value="350.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_sr', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('male_sr', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="spinner-container">
-                                <input type="number" class="spinner-input" id="female_sr" step="0.1" min="0" value="220.0">
-                                <div class="spinner-buttons">
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_sr', 1)">▲</button>
-                                    <button type="button" class="spinner-btn" onclick="adjustValue('female_sr', -1)">▼</button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                    <!-- Categories will be populated by JavaScript -->
                 </tbody>
             </table>
 
@@ -442,11 +436,23 @@
     </div>
 
     <script>
-        // API Configuration - Update this endpoint with your actual service URL
+        // API Configuration
         const API_ENDPOINT = 'https://us-central1-weightlifting-ranking-database.cloudfunctions.net/teams_ranking';
         
+        let rankCounter = {
+            sr: 0,
+            u20u23: 0,
+            u17: 0,
+            u15: 0
+        };
 
-        
+        const categoryLabels = {
+            sr: 'SR (Senior)',
+            u20u23: 'U20+U23 (Junior + U23)',
+            u17: 'U17 (Youth)',
+            u15: 'U15 (Schoolboy/Schoolgirl)'
+        };
+
         function formatDate(date) {
             if (!date) return '';
             const day = date.getDate().toString().padStart(2, '0');
@@ -454,30 +460,219 @@
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
         }
-        
-        // Date input handling - simple validation for native date input
-        const startDateInput = document.getElementById('startDate');
-        
-        startDateInput.addEventListener('change', function() {
-            if (this.value) {
-                this.classList.add('valid');
-                this.classList.remove('invalid');
-            } else {
-                this.classList.remove('valid', 'invalid');
-            }
-        });
-        
-        // Spinner functionality
-        function adjustValue(inputId, delta) {
-            const input = document.getElementById(inputId);
-            const currentValue = parseFloat(input.value) || 0;
-            const newValue = Math.max(0, currentValue + delta);
-            input.value = newValue.toFixed(1);
-            
-            input.dispatchEvent(new Event('change'));
+
+        function showLoadingOverlay(message) {
+            document.getElementById('loadingMessage').textContent = message;
+            document.getElementById('loadingOverlay').style.display = 'flex';
         }
-        
-        // Show status message
+
+        function hideLoadingOverlay() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        async function loadConfigFromServer() {
+            showLoadingOverlay('Loading configuration from server...');
+            
+            try {
+                const response = await fetch(API_ENDPOINT, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        action: "GET_DEFAULT_CONFIG",
+                        requestTimestamp: new Date().toISOString(),
+                        generatedBy: 'israeli-weightlifting-ranking-system'
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const config = await response.json();
+                console.log('Received config from server:', config);
+                
+                loadConfigFromData(config);
+                showStatusMessage('Configuration loaded from server successfully!', 'success');
+                
+            } catch (error) {
+                console.error('Failed to load config from server:', error);
+                showStatusMessage('Failed to load from server, using defaults', 'error');
+                resetToDefaults();
+            } finally {
+                hideLoadingOverlay();
+            }
+        }
+
+        function addRankRow(category) {
+            const table = document.getElementById('thresholdsTable');
+            const categoryRows = Array.from(table.querySelectorAll(`tr[data-category="${category}"]`));
+            const lastCategoryRow = categoryRows[categoryRows.length - 1];
+            
+            rankCounter[category]++;
+            const rankId = `${category}_${rankCounter[category]}`;
+            
+            const newRow = document.createElement('tr');
+            newRow.className = 'category-row';
+            newRow.dataset.category = category;
+            newRow.dataset.rankId = rankId;
+            
+            newRow.innerHTML = `
+                <td>
+                    <input type="text" class="rank-name-input" placeholder="Enter rank name...">
+                </td>
+                <td>
+                    <input type="number" class="threshold-input" step="0.1" min="0" value="0.0" data-gender="male">
+                </td>
+                <td>
+                    <input type="number" class="threshold-input" step="0.1" min="0" value="0.0" data-gender="female">
+                </td>
+                <td>
+                    <div class="actions-cell">
+                        <button type="button" class="add-row-btn" onclick="addRankRow('${category}')">+</button>
+                        <button type="button" class="delete-row-btn" onclick="deleteRankRow(this)">×</button>
+                    </div>
+                </td>
+            `;
+            
+            lastCategoryRow.insertAdjacentElement('afterend', newRow);
+            newRow.querySelector('.rank-name-input').focus();
+        }
+
+        function deleteRankRow(button) {
+            const row = button.closest('tr');
+            const category = row.dataset.category;
+            const remainingRows = document.querySelectorAll(`tr.category-row[data-category="${category}"]`);
+            
+            if (remainingRows.length > 1) {
+                row.remove();
+            } else {
+                showStatusMessage('Cannot delete the last rank in a category', 'error');
+            }
+        }
+
+        function collectThresholdData() {
+            const data = {
+                male: {},
+                female: {}
+            };
+            
+            const categories = ['sr', 'u20u23', 'u17', 'u15'];
+            
+            categories.forEach(category => {
+                data.male[category] = [];
+                data.female[category] = [];
+                
+                const categoryRows = document.querySelectorAll(`tr.category-row[data-category="${category}"]`);
+                
+                categoryRows.forEach(row => {
+                    const rankNameInput = row.querySelector('.rank-name-input');
+                    const maleInput = row.querySelector('input[data-gender="male"]');
+                    const femaleInput = row.querySelector('input[data-gender="female"]');
+                    
+                    const rankName = rankNameInput.value.trim();
+                    if (rankName) {
+                        data.male[category].push({
+                            rankName: rankName,
+                            threshold: parseFloat(maleInput.value) || 0
+                        });
+                        data.female[category].push({
+                            rankName: rankName,
+                            threshold: parseFloat(femaleInput.value) || 0
+                        });
+                    }
+                });
+            });
+            
+            return data;
+        }
+
+        function loadConfigFromData(config) {
+            const table = document.getElementById('thresholdsTable');
+            const tbody = table.querySelector('tbody');
+            
+            // Clear existing rows
+            tbody.innerHTML = '';
+            
+            // Reset counters
+            Object.keys(rankCounter).forEach(key => rankCounter[key] = 0);
+            
+            const categories = ['sr', 'u20u23', 'u17', 'u15'];
+            
+            categories.forEach(category => {
+                // Add category header
+                const headerRow = document.createElement('tr');
+                headerRow.className = 'category-header';
+                headerRow.dataset.category = category;
+                headerRow.innerHTML = `<td colspan="4">${categoryLabels[category]}</td>`;
+                tbody.appendChild(headerRow);
+                
+                // Get ranks for this category (use male as reference since both should have same structure)
+                const categoryRanks = config.male && config.male[category] ? config.male[category] : [];
+                
+                // If no ranks exist, add a default one
+                if (categoryRanks.length === 0) {
+                    categoryRanks.push({
+                        rankName: `${category.toUpperCase()} Default`,
+                        threshold: getDefaultThreshold(category, 'male')
+                    });
+                }
+                
+                categoryRanks.forEach((rank, index) => {
+                    rankCounter[category]++;
+                    const rankId = `${category}_${rankCounter[category]}`;
+                    
+                    const femaleRank = config.female && config.female[category] && config.female[category][index] 
+                        ? config.female[category][index] 
+                        : { rankName: rank.rankName, threshold: getDefaultThreshold(category, 'female') };
+                    
+                    const newRow = document.createElement('tr');
+                    newRow.className = 'category-row';
+                    newRow.dataset.category = category;
+                    newRow.dataset.rankId = rankId;
+                    
+                    newRow.innerHTML = `
+                        <td>
+                            <input type="text" class="rank-name-input" placeholder="Enter rank name..." value="${rank.rankName}">
+                        </td>
+                        <td>
+                            <input type="number" class="threshold-input" step="0.1" min="0" value="${rank.threshold}" data-gender="male">
+                        </td>
+                        <td>
+                            <input type="number" class="threshold-input" step="0.1" min="0" value="${femaleRank.threshold}" data-gender="female">
+                        </td>
+                        <td>
+                            <div class="actions-cell">
+                                <button type="button" class="add-row-btn" onclick="addRankRow('${category}')">+</button>
+                                <button type="button" class="delete-row-btn" onclick="deleteRankRow(this)">×</button>
+                            </div>
+                        </td>
+                    `;
+                    
+                    tbody.appendChild(newRow);
+                });
+            });
+        }
+
+        function getDefaultThreshold(category, gender) {
+            const defaults = {
+                sr: { male: 350.0, female: 220.0 },
+                u20u23: { male: 250.0, female: 180.0 },
+                u17: { male: 200.0, female: 130.0 },
+                u15: { male: 200.0, female: 130.0 }
+            };
+            return defaults[category][gender];
+        }
+
+        function downloadConfig() {
+            // Function removed - no longer needed
+        }
+
+        function resetToDefaults() {
+            // Function removed - no longer needed  
+        }
+
         function showStatusMessage(message, type = 'success') {
             const statusDiv = document.getElementById('statusMessage');
             statusDiv.textContent = message;
@@ -490,8 +685,7 @@
                 }, 5000);
             }
         }
-        
-        // Download file from blob
+
         function downloadFile(blob, filename) {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -503,8 +697,22 @@
             window.URL.revokeObjectURL(url);
             document.body.removeChild(a);
         }
-        
-        // Form submission with API call
+
+        // Load local config file handler (removed)
+        // document.getElementById('loadConfig').addEventListener('change', function(e) {
+        //     ... removed
+        // });
+
+        // Date input validation
+        const startDateInput = document.getElementById('startDate');
+        startDateInput.addEventListener('change', function() {
+            if (this.value) {
+                this.classList.add('valid');
+                this.classList.remove('invalid');
+            }
+        });
+
+        // Form submission
         document.getElementById('rankingForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -518,32 +726,23 @@
                 return;
             }
             
-            // Convert date to dd/mm/yyyy format for API
+            // Convert date to dd/mm/yyyy format
             const dateObj = new Date(startDateInput.value);
             const formattedDate = formatDate(dateObj);
             
-            // Prepare data with naming convention
-            const rankingData = {
+            // Collect threshold data in the new format
+            const thresholdData = collectThresholdData();
+            
+            // Build API payload for ranking generation
+            const payload = {
+                action: "GENERATE_TEAMS",
                 rankingStartDate: formattedDate,
-                minimumSinclairThresholds: {
-                    maleCategories: {
-                        u15: parseFloat(document.getElementById('male_u15').value) || 0,
-                        u17: parseFloat(document.getElementById('male_u17').value) || 0,
-                        u20: parseFloat(document.getElementById('male_u20').value) || 0,
-                        u23: parseFloat(document.getElementById('male_u23').value) || 0,
-                        sr: parseFloat(document.getElementById('male_sr').value) || 0
-                    },
-                    femaleCategories: {
-                        u15: parseFloat(document.getElementById('female_u15').value) || 0,
-                        u17: parseFloat(document.getElementById('female_u17').value) || 0,
-                        u20: parseFloat(document.getElementById('female_u20').value) || 0,
-                        u23: parseFloat(document.getElementById('female_u23').value) || 0,
-                        sr: parseFloat(document.getElementById('female_sr').value) || 0
-                    }
-                },
+                minimumSinclairThresholds: thresholdData,
                 requestTimestamp: new Date().toISOString(),
                 generatedBy: 'israeli-weightlifting-ranking-system'
             };
+            
+            console.log('Payload to be sent:', JSON.stringify(payload, null, 2));
             
             // Show loading state
             generateBtn.disabled = true;
@@ -551,14 +750,12 @@
             statusDiv.style.display = 'none';
             
             try {
-                console.log('Sending request to API:', rankingData);
-                
                 const response = await fetch(API_ENDPOINT, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify(rankingData)
+                    body: JSON.stringify(payload)
                 });
                 
                 if (!response.ok) {
@@ -569,13 +766,13 @@
                 const contentType = response.headers.get('content-type');
                 const today = new Date();
                 const formattedToday = formatDate(today);
+                
                 if (contentType && (contentType.includes('application/vnd.openxmlformats') || contentType.includes('application/vnd.ms-excel'))) {
                     const blob = await response.blob();
                     const filename = `Top_Teams_${formattedToday.replace(/\//g, '-')}.xlsx`;
                     downloadFile(blob, filename);
                     showStatusMessage('Top teams Excel file downloaded successfully!', 'success');
                 } else {
-                    // Handle JSON response or other formats
                     const result = await response.text();
                     console.log('API Response:', result);
                     showStatusMessage('Request completed successfully. Check console for details.', 'success');
@@ -585,21 +782,15 @@
                 console.error('API Error:', error);
                 showStatusMessage(`Error generating teams: ${error.message}`, 'error');
             } finally {
-                // Reset loading state
                 generateBtn.disabled = false;
                 generateBtn.classList.remove('loading');
             }
         });
-        
-        // Add hover effects to inputs
-        document.querySelectorAll('.spinner-input').forEach(input => {
-            input.addEventListener('focus', function() {
-                this.closest('td').style.transform = 'translateY(-2px)';
-            });
-            
-            input.addEventListener('blur', function() {
-                this.closest('td').style.transform = 'translateY(0)';
-            });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load configuration from server on startup
+            loadConfigFromServer();
         });
     </script>
 </body>
