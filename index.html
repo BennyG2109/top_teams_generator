@@ -441,14 +441,16 @@
         
         let rankCounter = {
             sr: 0,
-            u20u23: 0,
+            u23: 0,
+            u20: 0,
             u17: 0,
             u15: 0
         };
 
         const categoryLabels = {
             sr: 'Senior',
-            u20u23: 'U20 and U23',
+            u23: 'U23',
+            u20: 'U20',
             u17: 'U17',
             u15: 'U15'
         };
@@ -558,7 +560,7 @@
                 female: {}
             };
             
-            const categories = ['sr', 'u20u23', 'u17', 'u15'];
+            const categories = ['sr', 'u23', 'u20', 'u17', 'u15'];
             
             categories.forEach(category => {
                 data.male[category] = [];
@@ -598,7 +600,7 @@
             // Reset counters
             Object.keys(rankCounter).forEach(key => rankCounter[key] = 0);
             
-            const categories = ['sr', 'u20u23', 'u17', 'u15'];
+            const categories = ['sr', 'u23', 'u20', 'u17', 'u15'];
             
             categories.forEach(category => {
                 // Add category header
@@ -674,7 +676,11 @@
                     "sr": [
                     {"rankName": "אולימפי", "threshold": 350.0}
                     ],
-                    "u20u23": [
+                    "u23": [
+                    {"rankName": "נוער א'", "threshold": 300.0},
+                    {"rankName": "נוער ב'", "threshold": 270.0}
+                    ],
+                    "u20": [
                     {"rankName": "נוער א'", "threshold": 300.0},
                     {"rankName": "נוער ב'", "threshold": 270.0}
                     ],
@@ -692,7 +698,11 @@
                     "sr": [
                     {"rankName": "אולימפי", "threshold": 220.0}
                     ],
-                    "u20u23": [
+                    "u23": [
+                    {"rankName": "נוער א'", "threshold": 200.0},
+                    {"rankName": "נוער ב'", "threshold": 170.0}
+                    ],
+                    "u20": [
                     {"rankName": "נוער א'", "threshold": 200.0},
                     {"rankName": "נוער ב'", "threshold": 170.0}
                     ],
